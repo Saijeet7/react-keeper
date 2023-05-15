@@ -13,12 +13,29 @@ function App() {
     });
   }
 
+  function deleteNote(id) {
+    console.log("Delete was triggered");
+    setNotes((prevNotes) => {
+      return prevNotes.filter((noteItem, index) => {
+        return index !== id;
+      });
+    });
+  }
+
   return (
     <div>
       <Header />
       <CreateArea onAdd={addNote} />
-      {notes.map((notesItem) => {
-        return <Note title={notesItem.title} content={notesItem.content} />;
+      {notes.map((notesItem, index) => {
+        return (
+          <Note
+            key={index}
+            id={index}
+            title={notesItem.title}
+            content={notesItem.content}
+            onDelete={deleteNote}
+          />
+        );
       })}
       <Footer />
     </div>
